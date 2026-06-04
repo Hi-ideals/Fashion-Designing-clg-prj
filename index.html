@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAISON ÉCLAT — Haute Couture</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --black: #0d0d0d;
+      --gold: #b8963e;
+      --gold-light: #d4b063;
+      --warm-grey: #9a9187;
+      --off-white: #faf8f4;
+      --charcoal: #2a2622;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background-color: var(--off-white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* Hide cursor elements on touch devices */
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+      .cursor, .cursor-follower { display: block; }
+    }
+
+    /* Custom cursor — desktop only */
+    .cursor {
+      display: none;
+      width: 12px; height: 12px;
+      background: var(--black);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, background 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-follower {
+      display: none;
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s ease, opacity 0.3s;
+      transform: translate(-50%, -50%);
+      opacity: 0.6;
+    }
+
+    .font-display { font-family: 'Cormorant Garamond', serif; }
+    .text-gold { color: var(--gold); }
+    .text-warm { color: var(--warm-grey); }
+
+    /* ─── NAVBAR ─── */
+    .navbar {
+      background: transparent;
+      padding: 1.2rem 1rem;
+      transition: background 0.5s ease, padding 0.4s ease;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar.scrolled {
+      background: rgba(245, 240, 232, 0.97);
+      padding: 0.75rem 1rem;
+      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
+      backdrop-filter: blur(10px);
+    }
+    .navbar-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.18em;
+      color: var(--off-white) !important;
+      font-weight: 300;
+      text-transform: uppercase;
+      transition: color 0.4s;
+    }
+    .navbar.scrolled .navbar-brand { color: var(--black) !important; }
+
+    /* Mobile menu toggle */
+    .navbar-toggler {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0.25rem 0.5rem;
+    }
+    .toggler-icon {
+      font-size: 1.4rem;
+      color: rgba(245,240,232,0.9);
+      transition: color 0.3s;
+    }
+    .navbar.scrolled .toggler-icon { color: var(--black); }
+
+    /* Full-screen mobile menu overlay */
+    .navbar-collapse {
+      background: transparent;
+    }
+    @media (max-width: 991.98px) {
+      .navbar-collapse.show,
+      .navbar-collapse.collapsing {
+        position: fixed;
+        inset: 0;
+        background: rgba(13,13,13,0.97);
+        backdrop-filter: blur(12px);
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        padding: 2rem;
+      }
+      .navbar-collapse .navbar-nav {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .navbar-collapse .nav-link {
+        font-size: 1.1rem !important;
+        letter-spacing: 0.25em !important;
+        padding: 0.75rem 1rem !important;
+        color: rgba(245,240,232,0.85) !important;
+      }
+      .navbar-collapse .nav-link:hover { color: var(--gold) !important; }
+      .navbar-collapse .d-flex { justify-content: center; }
+      /* Close button inside open menu */
+      .mobile-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 1.6rem;
+        color: rgba(245,240,232,0.7);
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: block;
+      }
+    }
+    @media (min-width: 992px) {
+      .mobile-close { display: none !important; }
+    }
+
+    .nav-link {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.85) !important;
+      font-weight: 300;
+      padding: 0.4rem 0.9rem !important;
+      transition: color 0.3s;
+    }
+    .navbar.scrolled .nav-link { color: var(--charcoal) !important; }
+    .nav-link:hover { color: var(--gold) !important; }
+    .nav-icon {
+      font-size: 1.1rem;
+      color: rgba(245,240,232,0.85);
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+    .navbar.scrolled .nav-icon { color: var(--charcoal); }
+    .nav-icon:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100svh;
+      background: linear-gradient(160deg, #1a1612 0%, #2e251e 50%, #1a1612 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 6rem 0 4rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80') center/cover no-repeat;
+      opacity: 0.3;
+      transform: scale(1.05);
+      animation: heroZoom 12s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.05); }
+      to { transform: scale(1.12); }
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.65) 100%);
+    }
+    @media (min-width: 768px) {
+      .hero-overlay {
+        background: linear-gradient(to right, rgba(13,13,13,0.72) 40%, transparent 100%);
+      }
+    }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 10vw, 7.5rem);
+      line-height: 0.92;
+      font-weight: 300;
+      color: var(--cream);
+    }
+    .hero-title em { font-style: italic; color: var(--gold-light); }
+    .hero-subtitle {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: rgba(245,240,232,0.6);
+      font-weight: 200;
+      line-height: 1.9;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-maison {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 400;
+      transition: all 0.35s ease;
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .btn-maison::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+      z-index: -1;
+    }
+    .btn-maison:hover { color: var(--black); }
+    .btn-maison:hover::before { transform: scaleX(1); }
+    .btn-maison-dark {
+      background: var(--black);
+      color: var(--cream);
+      border-color: var(--black);
+    }
+    .btn-maison-dark::before { background: var(--charcoal); }
+    .btn-maison-dark:hover { color: var(--cream); }
+
+    /* Full-width buttons on small screens */
+    @media (max-width: 575.98px) {
+      .btn-maison { width: 100%; text-align: center; padding: 0.9rem 1rem; }
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(245,240,232,0.4);
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.3); }
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-strip {
+      background: var(--black);
+      padding: 0.75rem 0;
+      overflow: hidden;
+    }
+    .marquee-inner {
+      display: flex;
+      gap: 2.5rem;
+      white-space: nowrap;
+      animation: marqueeScroll 22s linear infinite;
+    }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .marquee-item span { color: var(--gold); font-size: 0.45rem; }
+
+    /* ─── SECTION LABELS ─── */
+    .section-eyebrow {
+      font-size: 0.63rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+    .divider-gold {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      display: inline-block;
+    }
+
+    /* ─── COLLECTIONS ─── */
+    .collections-section { padding: 5rem 0; background: var(--off-white); }
+    @media (max-width: 767.98px) { .collections-section { padding: 3.5rem 0; } }
+
+    .collection-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .collection-card img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: block;
+    }
+    .collection-card:hover img { transform: scale(1.07); }
+    .collection-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,13,13,0.72) 0%, transparent 55%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+    }
+    .collection-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .collection-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.1;
+    }
+    .collection-cta {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.55);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 300;
+    }
+    .collection-cta:hover { color: var(--gold); }
+    .collection-card .tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      padding: 0.28rem 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    /* Mobile collections: stack into 2-column swipeable row */
+    @media (max-width: 767.98px) {
+      .collection-card img { aspect-ratio: 4/5; }
+      .collection-name { font-size: 1.4rem; }
+    }
+
+    /* ─── FEATURED ─── */
+    .featured-section { padding: 5rem 0; background: var(--cream); }
+    @media (max-width: 767.98px) { .featured-section { padding: 3.5rem 0; } }
+
+    .featured-img-wrap { position: relative; }
+    .featured-img-wrap img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+    }
+    .featured-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: -14px; left: -14px;
+      width: 60%;
+      height: 60%;
+      border: 1px solid var(--gold);
+      z-index: -1;
+    }
+    @media (max-width: 575.98px) {
+      .featured-img-wrap::before { display: none; }
+    }
+    .featured-badge {
+      position: absolute;
+      bottom: -16px;
+      right: -16px;
+      width: 76px;
+      height: 76px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 575.98px) {
+      .featured-badge { bottom: 1rem; right: 1rem; }
+    }
+    .featured-badge span {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--gold);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .featured-content {
+      padding: 2rem 0;
+    }
+    @media (min-width: 992px) {
+      .featured-content { padding: 2rem 0 2rem 2.5rem; }
+    }
+    .price-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      color: var(--charcoal);
+      font-weight: 400;
+    }
+    .price-tag sub { font-size: 0.9rem; vertical-align: middle; }
+
+    /* ─── LOOKBOOK ─── */
+    .lookbook-section { padding: 5rem 0; background: var(--black); }
+    @media (max-width: 767.98px) { .lookbook-section { padding: 3.5rem 0; } }
+
+    .lookbook-section .section-title { color: var(--cream); }
+
+    /* Mobile lookbook: single column */
+    @media (max-width: 575.98px) {
+      .lookbook-grid-mobile img { aspect-ratio: 4/3; object-fit: cover; width: 100%; display: block; }
+    }
+    .lookbook-item {
+      overflow: hidden;
+      position: relative;
+    }
+    .lookbook-item img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease, filter 0.4s;
+      filter: grayscale(20%);
+    }
+    .lookbook-item:hover img { transform: scale(1.05); filter: grayscale(0%); }
+    .lookbook-item.tall img { aspect-ratio: 2/3; }
+    .lookbook-item.wide img { aspect-ratio: 16/9; }
+    .lookbook-item.square img { aspect-ratio: 1/1; }
+
+    /* ─── DESIGNERS ─── */
+    .designers-section { padding: 5rem 0; background: var(--off-white); }
+    @media (max-width: 767.98px) { .designers-section { padding: 3.5rem 0; } }
+
+    .designer-card {
+      text-align: center;
+      padding: 1.75rem 1.25rem;
+      border: 1px solid transparent;
+      transition: border-color 0.35s, background 0.35s;
+    }
+    .designer-card:hover {
+      border-color: var(--gold);
+      background: white;
+    }
+    .designer-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+      border: 2px solid var(--gold);
+      filter: grayscale(30%);
+      transition: filter 0.35s;
+    }
+    .designer-card:hover .designer-img { filter: grayscale(0%); }
+    .designer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+    }
+    .designer-role {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-section { padding: 5rem 0; background: var(--charcoal); }
+    @media (max-width: 767.98px) { .testimonials-section { padding: 3.5rem 0; } }
+    .testimonials-section .section-title { color: var(--cream); }
+
+    .quote-card {
+      padding: 2rem 1.5rem;
+      background: rgba(245,240,232,0.04);
+      border: 1px solid rgba(184,150,62,0.2);
+      transition: border-color 0.35s, background 0.35s;
+      height: 100%;
+    }
+    .quote-card:hover {
+      border-color: rgba(184,150,62,0.55);
+      background: rgba(245,240,232,0.07);
+    }
+    .quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      line-height: 0.5;
+      color: var(--gold);
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: rgba(245,240,232,0.8);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+    .quote-author {
+      font-size: 0.63rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 0.1em; }
+
+    /* ─── STATS ─── */
+    .stats-section { background: var(--gold); padding: 3.5rem 0; }
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 8vw, 3.5rem);
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-top: 0.4rem;
+    }
+
+    /* ─── NEWSLETTER ─── */
+    .newsletter-section {
+      padding: 5rem 0;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-section::before {
+      content: 'MAISON';
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22vw;
+      color: rgba(184,150,62,0.06);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: 0.2em;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    @media (max-width: 575.98px) {
+      .newsletter-form {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+    .newsletter-input {
+      border: none;
+      border-bottom: 1px solid var(--warm-grey);
+      background: transparent;
+      padding: 0.7rem 0;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: var(--black);
+      flex: 1;
+      border-radius: 0;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .newsletter-input:focus { border-color: var(--gold); }
+    .newsletter-input::placeholder { color: var(--warm-grey); font-size: 0.76rem; }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: var(--black);
+      padding: 4rem 0 2rem;
+      color: rgba(245,240,232,0.5);
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--cream);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+    }
+    .footer-tagline {
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .footer h6 {
+      font-size: 0.63rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+      font-weight: 400;
+    }
+    .footer-link {
+      display: block;
+      font-size: 0.78rem;
+      color: rgba(245,240,232,0.45);
+      text-decoration: none;
+      margin-bottom: 0.55rem;
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+    .footer-link:hover { color: var(--gold); }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(245,240,232,0.15);
+      border-radius: 50%;
+      color: rgba(245,240,232,0.45);
+      text-decoration: none;
+      transition: all 0.3s;
+      margin-right: 0.5rem;
+      font-size: 1rem;
+    }
+    .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(245,240,232,0.08);
+      padding-top: 1.5rem;
+      margin-top: 3rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+    }
+    @media (max-width: 575.98px) {
+      .footer-bottom { text-align: center; }
+      .footer-bottom .d-flex { justify-content: center !important; flex-wrap: wrap; gap: 0.75rem !important; }
+    }
+
+    /* ─── ACCORDION (mobile footer) ─── */
+    .footer-accordion .accordion-button {
+      background: transparent;
+      color: var(--cream);
+      font-size: 0.63rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(245,240,232,0.08);
+      box-shadow: none !important;
+    }
+    .footer-accordion .accordion-button::after {
+      filter: invert(1) sepia(1) saturate(2) hue-rotate(5deg);
+    }
+    .footer-accordion .accordion-button:not(.collapsed) { color: var(--gold); }
+    .footer-accordion .accordion-body {
+      background: transparent;
+      padding: 0.5rem 0 1rem;
+    }
+    .footer-accordion .accordion-item {
+      background: transparent;
+      border: none;
+    }
+
+    /* ─── REVEAL ANIMATION ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-left { transition: none; opacity: 1; transform: none; }
+      .hero::before { animation: none; }
+      .marquee-inner { animation: none; }
+      .scroll-line { animation: none; }
+    }
+
+    .gap-badge { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .rating-count { font-size: 0.7rem; color: var(--warm-grey); }
+  </style>
+</head>
+<body>
+
+<!-- Custom Cursor (desktop only) -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursor-follower"></div>
+
+<!-- ─── NAVBAR ─── -->
+<nav class="navbar navbar-expand-lg" id="mainNav">
+  <div class="container-xl">
+    <a class="navbar-brand" href="#">MAISON ÉCLAT</a>
+
+    <!-- Mobile: icons + hamburger -->
+    <div class="d-flex align-items-center gap-3 d-lg-none ms-auto me-2">
+      <a href="#" class="nav-icon"><i class="bi bi-search"></i></a>
+      <a href="#" class="nav-icon position-relative">
+        <i class="bi bi-bag"></i>
+        <span style="position:absolute;top:-4px;right:-6px;width:13px;height:13px;background:var(--gold);border-radius:50%;font-size:0.48rem;display:flex;align-items:center;justify-content:center;color:var(--black);font-weight:600;">3</span>
+      </a>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false">
+      <span class="toggler-icon"><i class="bi bi-list" id="menuIcon"></i></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <!-- Close button inside mobile overlay -->
+      <button class="mobile-close" data-bs-toggle="collapse" data-bs-target="#navMenu"><i class="bi bi-x"></i></button>
+
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="#collections" data-bs-toggle="collapse" data-bs-target="#navMenu.show">Collections</a></li>
+        <li class="nav-item"><a class="nav-link" href="#featured" data-bs-toggle="collapse" data-bs-target="#navMenu.show">Atelier</a></li>
+        <li class="nav-item"><a class="nav-link" href="#lookbook" data-bs-toggle="collapse" data-bs-target="#navMenu.show">Lookbook</a></li>
+        <li class="nav-item"><a class="nav-link" href="#designers" data-bs-toggle="collapse" data-bs-target="#navMenu.show">Designers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact" data-bs-toggle="collapse" data-bs-target="#navMenu.show">Contact</a></li>
+      </ul>
+      <div class="d-none d-lg-flex align-items-center gap-3">
+        <a href="#" class="nav-icon"><i class="bi bi-search"></i></a>
+        <a href="#" class="nav-icon"><i class="bi bi-person"></i></a>
+        <a href="#" class="nav-icon position-relative">
+          <i class="bi bi-bag"></i>
+          <span style="position:absolute;top:-4px;right:-6px;width:14px;height:14px;background:var(--gold);border-radius:50%;font-size:0.5rem;display:flex;align-items:center;justify-content:center;color:var(--black);font-weight:600;">3</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="container-xl">
+    <div class="row">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+        <div class="hero-content text-center text-md-start">
+          <p class="hero-eyebrow mb-3 reveal">✦ New Collection 2025</p>
+          <h1 class="hero-title mb-4 reveal">
+            The Art of<br>
+            <em>Dressed</em><br>
+            Silence
+          </h1>
+          <p class="hero-subtitle mb-5 reveal mx-auto mx-md-0" style="max-width:320px;">
+            Where couture transcends clothing — each piece a meditation on form, texture, and the spaces between.
+          </p>
+          <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-md-start gap-3 reveal">
+            <a href="#collections" class="btn-maison">Explore Collection</a>
+            <a href="#lookbook" class="btn-maison" style="border-color:rgba(245,240,232,0.3);color:rgba(245,240,232,0.7);">View Lookbook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll d-none d-md-flex">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <div class="marquee-item">Haute Couture <span>✦</span></div>
+    <div class="marquee-item">Prêt-à-Porter <span>✦</span></div>
+    <div class="marquee-item">Bespoke Atelier <span>✦</span></div>
+    <div class="marquee-item">SS 2025 Collection <span>✦</span></div>
+    <div class="marquee-item">Paris · Milan · New York <span>✦</span></div>
+    <div class="marquee-item">Sustainable Luxury <span>✦</span></div>
+    <div class="marquee-item">Handcrafted Excellence <span>✦</span></div>
+    <div class="marquee-item">Haute Couture <span>✦</span></div>
+    <div class="marquee-item">Prêt-à-Porter <span>✦</span></div>
+    <div class="marquee-item">Bespoke Atelier <span>✦</span></div>
+    <div class="marquee-item">SS 2025 Collection <span>✦</span></div>
+    <div class="marquee-item">Paris · Milan · New York <span>✦</span></div>
+    <div class="marquee-item">Sustainable Luxury <span>✦</span></div>
+    <div class="marquee-item">Handcrafted Excellence <span>✦</span></div>
+  </div>
+</div>
+
+<!-- ─── COLLECTIONS ─── -->
+<section class="collections-section" id="collections">
+  <div class="container-xl">
+    <div class="row mb-4 mb-lg-5">
+      <div class="col-12 col-lg-6 text-center text-lg-start">
+        <p class="section-eyebrow reveal">Our Curation</p>
+        <div class="d-flex justify-content-center justify-content-lg-start my-3"><div class="divider-gold reveal"></div></div>
+        <h2 class="section-title reveal">Latest<br><em class="font-display fst-italic">Collections</em></h2>
+      </div>
+      <div class="col-lg-5 offset-lg-1 d-none d-lg-flex align-items-end">
+        <p class="text-warm reveal" style="font-size:0.85rem;line-height:1.9;">
+          Each season we curate pieces that push the boundaries of craft and conception — garments that do not merely clothe, but speak.
+        </p>
+      </div>
+    </div>
+
+    <!-- Mobile: 2-column grid. Desktop: asymmetric layout -->
+    <div class="d-lg-none">
+      <div class="row g-3">
+        <div class="col-6 reveal">
+          <div class="collection-card">
+            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80" alt="Nocturne Couture" />
+            <div class="collection-overlay">
+              <span class="collection-label">Evening</span>
+              <h3 class="collection-name" style="font-size:1.2rem;">Nocturne</h3>
+              <a href="#" class="collection-cta mt-1">Discover →</a>
+            </div>
+            <div class="tag">New</div>
+          </div>
+        </div>
+        <div class="col-6 reveal">
+          <div class="collection-card">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80" alt="Day Wear" />
+            <div class="collection-overlay">
+              <span class="collection-label">Day</span>
+              <h3 class="collection-name" style="font-size:1.2rem;">Lumière</h3>
+              <a href="#" class="collection-cta mt-1">Discover →</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 reveal">
+          <div class="collection-card">
+            <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=400&q=80" alt="Bridal" />
+            <div class="collection-overlay">
+              <span class="collection-label">Bridal</span>
+              <h3 class="collection-name" style="font-size:1.2rem;">Blanc</h3>
+              <a href="#" class="collection-cta mt-1">Discover →</a>
+            </div>
+            <div class="tag" style="background:var(--off-white);color:var(--black);">Exclusive</div>
+          </div>
+        </div>
+        <div class="col-6 reveal">
+          <div class="collection-card">
+            <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80" alt="Resort" />
+            <div class="collection-overlay">
+              <span class="collection-label">Resort</span>
+              <h3 class="collection-name" style="font-size:1.2rem;">Soleil</h3>
+              <a href="#" class="collection-cta mt-1">Discover →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop layout -->
+    <div class="d-none d-lg-block">
+      <div class="row g-4">
+        <div class="col-lg-5 reveal">
+          <div class="collection-card">
+            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=700&q=80" alt="Evening Couture" />
+            <div class="collection-overlay">
+              <span class="collection-label">Evening</span>
+              <h3 class="collection-name">Nocturne<br>Couture</h3>
+              <a href="#" class="collection-cta mt-2">Discover →</a>
+            </div>
+            <div class="tag">New</div>
+          </div>
+        </div>
+        <div class="col-lg-7 reveal">
+          <div class="row g-4 h-100">
+            <div class="col-sm-6">
+              <div class="collection-card h-100">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&q=80" alt="Day Wear" style="height:100%;min-height:260px;" />
+                <div class="collection-overlay">
+                  <span class="collection-label">Day</span>
+                  <h3 class="collection-name" style="font-size:1.5rem;">Lumière<br>Day</h3>
+                  <a href="#" class="collection-cta mt-1">Discover →</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="collection-card h-100">
+                <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=500&q=80" alt="Bridal" style="height:100%;min-height:260px;" />
+                <div class="collection-overlay">
+                  <span class="collection-label">Bridal</span>
+                  <h3 class="collection-name" style="font-size:1.5rem;">Blanc<br>Éternel</h3>
+                  <a href="#" class="collection-cta mt-1">Discover →</a>
+                </div>
+                <div class="tag" style="background:var(--off-white);color:var(--black);">Exclusive</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=900&q=80" alt="Resort" style="aspect-ratio:16/7;" />
+                <div class="collection-overlay">
+                  <span class="collection-label">Resort 2025</span>
+                  <h3 class="collection-name">Soleil<br>Riviera</h3>
+                  <a href="#" class="collection-cta mt-1">Discover →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4 mt-lg-5 reveal">
+      <a href="#" class="btn-maison btn-maison-dark">View All Collections</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURED PIECE ─── -->
+<section class="featured-section" id="featured">
+  <div class="container-xl">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-10 col-sm-8 col-md-6 col-lg-5 mx-auto mx-lg-0 reveal-left">
+        <div class="featured-img-wrap">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Featured Piece" />
+          <div class="featured-badge">
+            <span>Piece<br>of the<br>Season</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-6 offset-lg-1 reveal">
+        <div class="featured-content text-center text-lg-start">
+          <p class="section-eyebrow">Featured Atelier Piece</p>
+          <div class="d-flex justify-content-center justify-content-lg-start my-3"><div class="divider-gold"></div></div>
+          <h2 class="section-title mb-3">The Obsidian<br><em class="fst-italic font-display">Evening Gown</em></h2>
+          <div class="gap-badge justify-content-center justify-content-lg-start mb-3">
+            <div class="stars">★★★★★</div>
+            <span class="rating-count">(248 reviews)</span>
+          </div>
+          <p style="font-size:0.83rem;line-height:2;color:var(--warm-grey);margin-bottom:1.5rem;">
+            Hand-stitched from 100% silk crepe, this floor-length silhouette is defined by its deep obsidian tone and architectural décolleté. Each gown takes 140 hours of couture labour to complete.
+          </p>
+          <div class="d-flex justify-content-center justify-content-lg-start gap-4 mb-4 flex-wrap" style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;">
+            <div>
+              <div style="color:var(--warm-grey);">Material</div>
+              <div style="color:var(--charcoal);font-weight:400;">100% Silk Crepe</div>
+            </div>
+            <div>
+              <div style="color:var(--warm-grey);">Origin</div>
+              <div style="color:var(--charcoal);font-weight:400;">Paris Atelier</div>
+            </div>
+            <div>
+              <div style="color:var(--warm-grey);">Hours</div>
+              <div style="color:var(--charcoal);font-weight:400;">140 hrs</div>
+            </div>
+          </div>
+          <div class="price-tag mb-4"><sub>€</sub>4,850</div>
+          <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
+            <a href="#" class="btn-maison btn-maison-dark">Request a Fitting</a>
+            <a href="#" class="btn-maison">Save to Wishlist</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOOKBOOK ─── -->
+<section class="lookbook-section" id="lookbook">
+  <div class="container-xl">
+    <div class="row mb-4 mb-lg-5">
+      <div class="col-12 col-lg-6 text-center text-lg-start">
+        <p class="section-eyebrow reveal">Visual Stories</p>
+        <div class="d-flex justify-content-center justify-content-lg-start my-3"><div class="divider-gold reveal"></div></div>
+        <h2 class="section-title reveal" style="color:var(--cream);">SS 2025<br><em class="fst-italic font-display">Lookbook</em></h2>
+      </div>
+    </div>
+
+    <!-- Mobile lookbook: 2-col simple grid -->
+    <div class="d-lg-none">
+      <div class="row g-2">
+        <div class="col-6 reveal"><div class="lookbook-item"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80" alt="Look 1" style="aspect-ratio:3/4;object-fit:cover;" /></div></div>
+        <div class="col-6 reveal"><div class="lookbook-item"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80" alt="Look 2" style="aspect-ratio:3/4;object-fit:cover;" /></div></div>
+        <div class="col-6 reveal"><div class="lookbook-item"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80" alt="Look 3" style="aspect-ratio:3/4;object-fit:cover;" /></div></div>
+        <div class="col-6 reveal"><div class="lookbook-item"><img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=400&q=80" alt="Look 4" style="aspect-ratio:3/4;object-fit:cover;" /></div></div>
+        <div class="col-12 reveal"><div class="lookbook-item"><img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=800&q=80" alt="Look 5" style="aspect-ratio:16/9;object-fit:cover;" /></div></div>
+      </div>
+    </div>
+
+    <!-- Desktop lookbook -->
+    <div class="d-none d-lg-block">
+      <div class="row g-3">
+        <div class="col-4 reveal">
+          <div class="lookbook-item tall"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80" alt="Look 1" /></div>
+        </div>
+        <div class="col-4 reveal">
+          <div class="row g-3">
+            <div class="col-12"><div class="lookbook-item square"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80" alt="Look 2" /></div></div>
+            <div class="col-12"><div class="lookbook-item square"><img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80" alt="Look 3" /></div></div>
+          </div>
+        </div>
+        <div class="col-4 reveal">
+          <div class="lookbook-item tall"><img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=400&q=80" alt="Look 4" /></div>
+        </div>
+        <div class="col-6 reveal"><div class="lookbook-item wide"><img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=700&q=80" alt="Look 5" /></div></div>
+        <div class="col-3 reveal"><div class="lookbook-item square"><img src="https://images.unsplash.com/photo-1562572159-4efc207f5aff?w=400&q=80" alt="Look 6" /></div></div>
+        <div class="col-3 reveal"><div class="lookbook-item square"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" alt="Look 7" /></div></div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4 mt-lg-5 reveal">
+      <a href="#" class="btn-maison">View Full Lookbook</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DESIGNERS ─── -->
+<section class="designers-section" id="designers">
+  <div class="container-xl">
+    <div class="text-center mb-4 mb-lg-5">
+      <p class="section-eyebrow reveal">The Creative Force</p>
+      <div class="d-flex justify-content-center my-3"><div class="divider-gold reveal"></div></div>
+      <h2 class="section-title reveal">Meet Our<br><em class="fst-italic font-display">Designers</em></h2>
+    </div>
+    <div class="row g-3 g-md-4">
+      <div class="col-6 col-md-6 col-lg-3 reveal">
+        <div class="designer-card">
+          <img class="designer-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80" alt="Isabelle Moreau" />
+          <h4 class="designer-name">Isabelle Moreau</h4>
+          <p class="designer-role mt-1">Creative Director</p>
+          <p class="d-none d-md-block" style="font-size:0.76rem;color:var(--warm-grey);margin-top:0.6rem;line-height:1.7;">20 years shaping couture in Paris & Milan.</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-6 col-lg-3 reveal">
+        <div class="designer-card">
+          <img class="designer-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80" alt="Lena Strauss" />
+          <h4 class="designer-name">Lena Strauss</h4>
+          <p class="designer-role mt-1">Head of Couture</p>
+          <p class="d-none d-md-block" style="font-size:0.76rem;color:var(--warm-grey);margin-top:0.6rem;line-height:1.7;">Architect-turned-designer with a love of structure.</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-6 col-lg-3 reveal">
+        <div class="designer-card">
+          <img class="designer-img" src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=200&q=80" alt="Amara Diallo" />
+          <h4 class="designer-name">Amara Diallo</h4>
+          <p class="designer-role mt-1">Textiles & Surface</p>
+          <p class="d-none d-md-block" style="font-size:0.76rem;color:var(--warm-grey);margin-top:0.6rem;line-height:1.7;">Weaving heritage craft into contemporary form.</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-6 col-lg-3 reveal">
+        <div class="designer-card">
+          <img class="designer-img" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=200&q=80" alt="Kenji Nakamura" />
+          <h4 class="designer-name">Kenji Nakamura</h4>
+          <p class="designer-role mt-1">Pattern & Tailoring</p>
+          <p class="d-none d-md-block" style="font-size:0.76rem;color:var(--warm-grey);margin-top:0.6rem;line-height:1.7;">Trained in Savile Row, perfecting Parisian cuts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container-xl">
+    <div class="text-center mb-4 mb-lg-5">
+      <p class="section-eyebrow reveal">From Our Clients</p>
+      <div class="d-flex justify-content-center my-3"><div class="divider-gold reveal"></div></div>
+      <h2 class="section-title reveal">What They<br><em class="fst-italic font-display">Say</em></h2>
+    </div>
+    <div class="row g-3 g-md-4">
+      <div class="col-12 col-md-4 reveal">
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <p class="quote-text">The Nocturne gown I wore to the Cannes premiere attracted more attention than the film itself. Maison Éclat is unparalleled.</p>
+          <div class="stars mb-2">★★★★★</div>
+          <p class="quote-author">— Céleste Fontaine, Paris</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 reveal">
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <p class="quote-text">For my wedding, they created something completely bespoke. I felt as though the dress had always existed, waiting only for me to wear it.</p>
+          <div class="stars mb-2">★★★★★</div>
+          <p class="quote-author">— Mira Okonkwo, Lagos</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 reveal">
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <p class="quote-text">I have worn couture from every major house. None understand the relationship between cloth and body the way Éclat's atelier does.</p>
+          <div class="stars mb-2">★★★★★</div>
+          <p class="quote-author">— Yuki Tanaka, Tokyo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ─── -->
+<section class="stats-section">
+  <div class="container-xl">
+    <div class="row text-center g-4">
+      <div class="col-6 col-md-3 reveal">
+        <div class="stat-number">38</div>
+        <div class="stat-label">Years of Couture</div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="stat-number">12K+</div>
+        <div class="stat-label">Pieces Created</div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="stat-number">54</div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+      <div class="col-6 col-md-3 reveal">
+        <div class="stat-number">140h</div>
+        <div class="stat-label">Avg. Couture Hours</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── NEWSLETTER ─── -->
+<section class="newsletter-section" id="contact">
+  <div class="container-xl">
+    <div class="row justify-content-center text-center">
+      <div class="col-12 col-md-9 col-lg-6">
+        <p class="section-eyebrow reveal">Stay Informed</p>
+        <div class="d-flex justify-content-center my-3"><div class="divider-gold reveal"></div></div>
+        <h2 class="section-title mb-3 reveal">Enter the<br><em class="fst-italic font-display">Inner Circle</em></h2>
+        <p class="text-warm mb-4 mb-lg-5 reveal" style="font-size:0.82rem;line-height:1.9;">
+          Receive invitations to private previews, atelier events, and first access to each new collection.
+        </p>
+        <div class="newsletter-form reveal">
+          <input type="email" class="newsletter-input" placeholder="Your email address" />
+          <a href="#" class="btn-maison btn-maison-dark ms-0 ms-sm-3">Subscribe</a>
+        </div>
+        <p class="mt-3 reveal" style="font-size:0.63rem;letter-spacing:0.15em;color:var(--warm-grey);">No spam. Unsubscribe at any time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="container-xl">
+
+    <!-- Footer top: brand + social always visible -->
+    <div class="row mb-4 mb-lg-5">
+      <div class="col-12 col-lg-4 text-center text-lg-start">
+        <div class="footer-brand mb-1">MAISON ÉCLAT</div>
+        <div class="footer-tagline mb-3">Paris · Est. 1987</div>
+        <p class="d-none d-lg-block" style="font-size:0.78rem;line-height:1.9;max-width:280px;color:rgba(245,240,232,0.45);">
+          A house dedicated to the enduring belief that clothing, at its highest form, is an art.
+        </p>
+        <div class="footer-social mt-3">
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-pinterest"></i></a>
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop footer links -->
+    <div class="d-none d-lg-block">
+      <div class="row g-4">
+        <div class="col-lg-2 offset-lg-4">
+          <h6>Collections</h6>
+          <a class="footer-link" href="#">Haute Couture</a>
+          <a class="footer-link" href="#">Prêt-à-Porter</a>
+          <a class="footer-link" href="#">Evening</a>
+          <a class="footer-link" href="#">Bridal</a>
+          <a class="footer-link" href="#">Resort</a>
+          <a class="footer-link" href="#">Accessories</a>
+        </div>
+        <div class="col-lg-2">
+          <h6>Atelier</h6>
+          <a class="footer-link" href="#">Our Story</a>
+          <a class="footer-link" href="#">Designers</a>
+          <a class="footer-link" href="#">Craftsmanship</a>
+          <a class="footer-link" href="#">Sustainability</a>
+          <a class="footer-link" href="#">Careers</a>
+        </div>
+        <div class="col-lg-2">
+          <h6>Services</h6>
+          <a class="footer-link" href="#">Bespoke Fitting</a>
+          <a class="footer-link" href="#">Alterations</a>
+          <a class="footer-link" href="#">Styling</a>
+          <a class="footer-link" href="#">Private Events</a>
+          <a class="footer-link" href="#">Gift Cards</a>
+        </div>
+        <div class="col-lg-2">
+          <h6>Contact</h6>
+          <p style="font-size:0.76rem;line-height:1.8;color:rgba(245,240,232,0.45);">
+            12 Rue du Faubourg<br>Saint-Honoré<br>75008 Paris, France
+          </p>
+          <a class="footer-link" href="tel:+33140001234">+33 1 40 00 12 34</a>
+          <a class="footer-link" href="mailto:atelier@maisoneclat.fr">atelier@maisoneclat.fr</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile accordion footer links -->
+    <div class="d-lg-none footer-accordion accordion" id="footerAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fc1">Collections</button>
+        </h2>
+        <div id="fc1" class="accordion-collapse collapse" data-bs-parent="#footerAccordion">
+          <div class="accordion-body">
+            <a class="footer-link" href="#">Haute Couture</a>
+            <a class="footer-link" href="#">Prêt-à-Porter</a>
+            <a class="footer-link" href="#">Evening</a>
+            <a class="footer-link" href="#">Bridal</a>
+            <a class="footer-link" href="#">Resort</a>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fc2">Atelier</button>
+        </h2>
+        <div id="fc2" class="accordion-collapse collapse" data-bs-parent="#footerAccordion">
+          <div class="accordion-body">
+            <a class="footer-link" href="#">Our Story</a>
+            <a class="footer-link" href="#">Designers</a>
+            <a class="footer-link" href="#">Craftsmanship</a>
+            <a class="footer-link" href="#">Sustainability</a>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fc3">Services</button>
+        </h2>
+        <div id="fc3" class="accordion-collapse collapse" data-bs-parent="#footerAccordion">
+          <div class="accordion-body">
+            <a class="footer-link" href="#">Bespoke Fitting</a>
+            <a class="footer-link" href="#">Alterations</a>
+            <a class="footer-link" href="#">Styling Consultation</a>
+            <a class="footer-link" href="#">Gift Cards</a>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#fc4">Contact</button>
+        </h2>
+        <div id="fc4" class="accordion-collapse collapse" data-bs-parent="#footerAccordion">
+          <div class="accordion-body">
+            <p style="font-size:0.76rem;line-height:1.8;color:rgba(245,240,232,0.45);margin-bottom:0.5rem;">12 Rue du Faubourg Saint-Honoré, 75008 Paris</p>
+            <a class="footer-link" href="tel:+33140001234">+33 1 40 00 12 34</a>
+            <a class="footer-link" href="mailto:atelier@maisoneclat.fr">atelier@maisoneclat.fr</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom d-flex flex-column flex-sm-row flex-wrap justify-content-between align-items-center gap-2">
+      <span>© 2025 Maison Éclat. All rights reserved.</span>
+      <div class="d-flex gap-3 flex-wrap justify-content-center">
+        <a href="#" class="footer-link" style="margin:0;font-size:0.63rem;letter-spacing:0.12em;">Privacy Policy</a>
+        <a href="#" class="footer-link" style="margin:0;font-size:0.63rem;letter-spacing:0.12em;">Terms</a>
+        <a href="#" class="footer-link" style="margin:0;font-size:0.63rem;letter-spacing:0.12em;">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // ── Custom Cursor (desktop only) ──
+  const isTouchDevice = () => !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isTouchDevice()) {
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursor-follower');
+    let mx = 0, my = 0, fx = 0, fy = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animateCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12;
+      follower.style.left = fx + 'px'; follower.style.top = fy + 'px';
+      requestAnimationFrame(animateCursor);
+    })();
+    document.querySelectorAll('a, button, .collection-card, .designer-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(2.2)';
+        cursor.style.background = 'var(--gold)';
+        follower.style.opacity = '0.2';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+        cursor.style.background = 'var(--black)';
+        follower.style.opacity = '0.6';
+      });
+    });
+  }
+
+  // ── Navbar scroll ──
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Prevent body scroll when mobile menu is open ──
+  const navMenu = document.getElementById('navMenu');
+  navMenu.addEventListener('show.bs.collapse', () => document.body.style.overflow = 'hidden');
+  navMenu.addEventListener('hide.bs.collapse', () => document.body.style.overflow = '');
+
+  // ── Reveal on scroll ──
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
