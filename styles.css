@@ -177,7 +177,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('images/hero-bg.jpg') center/cover no-repeat;
+  background: url('image/hero-bag1.jfif') center/cover no-repeat;
   opacity: 0.35;
   transform: scale(1.05);
   animation: heroZoom 12s ease-in-out infinite alternate;
